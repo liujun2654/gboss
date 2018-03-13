@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "antd-mobile": "^2.0.0",
+    "antd-mobile": "^2.1.6",
     "axios": "^0.17.1",
+    "blueimp-md5": "^2.10.0",
+    "body-parser": "^1.18.2",
     "browser-cookies": "^1.2.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.1",
     "prop-types": "^15.6.0",
     "rc-queue-anim": "^1.4.1",
     "react": "^16.2.0",
@@ -14,12 +19,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "socket.io": "^2.0.4",
-    "mongoose": "^5.0.1",
-    "blueimp-md5": "^2.10.0",
-    "body-parser": "^1.18.2",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.16.2"
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.6.5",
