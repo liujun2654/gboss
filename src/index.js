@@ -10,6 +10,7 @@ import Login from './containers/login/login';
 import Register from './containers/register/register';
 import Dashboard from './containers/dashboard/dashboard';
 import store from './redux/store';
+import './assets/index.less'
 
 ReactDOM.render((
   <Provider store={store}>

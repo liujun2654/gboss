@@ -4,11 +4,14 @@
 
 import React from 'react';
 import {WingBlank,WhiteSpace,NavBar,Button,List,InputItem} from 'antd-mobile';
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 import Logo from '../../components/logo/logo'
+import {login} from '../../redux/actions'
 
 
-export default class Login extends React.Component{
+class Login extends React.Component{
 
   state = {
     name: '',//用户名
@@ -22,19 +25,25 @@ export default class Login extends React.Component{
   }
 
   login=()=>{
-    console.log(this.state);
+    this.props.login(this.state);
   };
   toRegister=() =>{
     this.props.history.replace('./register');
   };
 
   render(){
+    const {user} = this.props;
+    if(user.redirectTo){
+      return <Redirect to={user.redirectTo}/>
+    }
     return (
       <div>
         <NavBar>硅 谷 直 聘</NavBar>
         <Logo/>
         <WingBlank>
           <List>
+            <WhiteSpace/>
+            {user.msg?<p className='error-msg'>{user.msg}</p>:''}
             <InputItem onChange={val=>{this.handleChange('name',val)}}>用户名：</InputItem>
             <WhiteSpace/>
             <InputItem type='password' onChange={val=>{this.handleChange('pwd',val)}}>密码：</InputItem>
@@ -47,3 +56,8 @@ export default class Login extends React.Component{
     )
   }
 }
+
+export default connect(
+  state=>({user:state.user}),
+  {login}
+)(Login)
