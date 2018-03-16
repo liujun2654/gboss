@@ -4,6 +4,7 @@
 
 import {combineReducers} from 'redux'
 import {AUTH_SUCCESS,ERROR_MSG} from './action-types';
+import {getRedirectPath} from '../utils';
 
 const initUser = {
   name: '', // 用户名
@@ -16,7 +17,8 @@ function user(state=initUser,action) {
 
   switch (action.type){
     case AUTH_SUCCESS:
-      return {...action.data,redirectTo:'/'};
+      const user = action.data;
+      return {...user,redirectTo:getRedirectPath(user.type,user.avatar)};
     case ERROR_MSG:
       return {...state,msg:action.data};
     default:

@@ -44,7 +44,7 @@ router.post('/register',function (req,res) {
         // 生成一个cookie(userid: user._id), 并交给浏览器保存
         res.cookie('userid',user._id);
         // 保存成功, 返回成功的响应数据: user
-        return res.send({code:0,date:{_id:user._id,name,type}})
+        return res.send({code:0,data:{_id:user._id,name,type}})
       })
     }
   })
