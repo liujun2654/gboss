@@ -3,7 +3,7 @@
 * */
 
 import {combineReducers} from 'redux'
-import {AUTH_SUCCESS,ERROR_MSG} from './action-types';
+import {AUTH_SUCCESS,ERROR_MSG,RECEIVE_USER,RESET_USER} from './action-types';
 import {getRedirectPath} from '../utils';
 
 const initUser = {
@@ -21,6 +21,10 @@ function user(state=initUser,action) {
       return {...user,redirectTo:getRedirectPath(user.type,user.avatar)};
     case ERROR_MSG:
       return {...state,msg:action.data};
+    case RECEIVE_USER:
+      return action.data;
+    case RESET_USER:
+      return initUser;
     default:
       return state;
   }

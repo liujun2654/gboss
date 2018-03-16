@@ -2,13 +2,17 @@
 包含所有action creator函数的模块
  */
 
-import {reqRegister,reqLogin} from '../api';
-import {ERROR_MSG,AUTH_SUCCESS} from './action-types';
+import {reqRegister,reqLogin,reqUpdateUser} from '../api';
+import {ERROR_MSG,AUTH_SUCCESS,RECEIVE_USER,RESET_USER} from './action-types';
 
 //错误信息同步action
 export const errorMsg = msg => ({type:ERROR_MSG,data:msg});
 //正确信息同步action
 export const authSuccess = user => ({type:AUTH_SUCCESS,data:user});
+//接受用户同步的action
+export const receiveUser = user => ({type:RECEIVE_USER,data:user});
+//重置用户同步的action
+export const resetUser = msg => ({type:RESET_USER,data:msg});
 
 //异步注册action
 export const register = ({name,pwd,pwd2,type}) => {
@@ -46,6 +50,22 @@ export const login = ({name,pwd}) => {
       dispatch(authSuccess(result.data));
     }else {
       dispatch(errorMsg(result.msg));
+    }
+  }
+};
+
+/*
+更新用户资料，发送异步请求
+ */
+export const updateUser = (user) => {
+  return async dispatch=>{
+    const response = await reqUpdateUser(user)
+    const result = response.data;
+    //判断是否成功
+    if(result.code === 0){//成功
+      dispatch(receiveUser(result.data));
+    }else {
+      dispatch(resetUser(result.msg));
     }
   }
 };
