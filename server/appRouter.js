@@ -67,6 +67,29 @@ router.post('/login',function (req,res) {
   })
 
 });
+//更新资料路由
+router.post('/update',function (req,res) {
+  //拿到请求cookie的userid
+  const userid = req.cookies.userid;
+  //判断是否存在，如果没存在，表示没登陆
+  if(!userid){
+    return res.send({code:1,msg:'请先登陆'});
+  }
+  //更新数据库中对应的数据
+  UserModel.findByIdAndUpdate({_id:userid},req.body,function (err,user) {
+    if(!user){
+      //更新失败，删除cookie中userid
+      res.clearCookie('userid');
+      return res.send({code:1,msg:'请先登陆'});
+    }else {
+      //更新成功，返回新数据
+      const {_id,name,type} = user;
+      //合并用户数据
+      const data = Object.assign(req.body,{_id,name,type});
+      res.send({code:0,data});
+    }
+  })
+});
 
 // 4. 向外暴露路由器
 module.exports = router;
