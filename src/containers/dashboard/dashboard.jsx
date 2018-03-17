@@ -15,7 +15,7 @@ import Boss from '../boss/boss';
 import Genius from '../genius/genius';
 import Msg from '../msg/msg';
 import User from '../user/user';
-import NotFound from '../not-found/not-found';
+import NotFound from '../../components/not-found/not-found';
 import {getRedirectPath} from '../../utils'
 
 class Dashboard extends React.Component{
