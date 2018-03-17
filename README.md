@@ -54,3 +54,59 @@
 ## 4. 实现简单后台
     1). 使用express搭建简单的服务器端
     2). 使用mongoose操作mongodb数据库
+
+# day02
+## 1. 登陆/注册后台实现
+    1). models.js
+        连接数据库: mongoose.connect(url)
+        定义集合结构: schema
+        定义操作集合的model: UserModel
+    2). appRouter.js
+        注册: 流程
+        登陆: 流程
+        响应数据结构{code: 0, data: user}, {code: 1, msg: 'xxx'}
+    3). server.js
+        解析请求体/解析cookie
+        注册路由器
+
+## 2. 登陆/注册前台实现
+    1). ajax
+        ajax请求函数
+        后台接口请求函数
+    2). redux
+        store.js
+          生成并暴露一个store管理对象
+        reducers.js
+          包含n个reducer函数
+          根据老state和指定action来产生返回一个新的state
+        actions.js
+          包含n个action creator函数
+          同步action: 返回一个action对象({type: 'XXX', data: xxx})
+          异步action: 返回一个函数: disptach => {执行异步代理, 结束时dispatch一个同步action}
+        action-types.js
+          action的type名称常量
+    3). 组件
+        UI组件: 
+            组件内部没有使用任何redux相关的API
+            通过props接收容器组件传入的从redux获取数据
+             数据类型: 一般和函数
+        容器组件
+            connect(
+              state => ({user: state.user}),
+              {action1, action2}
+            )(UI组件)
+
+## 3. 前后台应用结构图
+
+
+# day03
+## 1. 使用async/await实现ajax异步编码
+    1). 使用
+      使用await: 通过调用返回promise的函数获取异步的结果, 函数调用的左侧
+      使用async: 使用了await的函数定义左侧
+    2). 作用:
+      同步编码方式实现程序的异步执行
+      依赖于promise/简化promise编码
+## 2. 实现user信息完善功能
+
+## 3. 搭建整体界面
