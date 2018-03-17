@@ -14,7 +14,7 @@ export default class AvatarSelector extends React.Component{
     super(props);
     this.avatarList = 'boy,girl,man,woman,bull,chick,crab,hedgehog,hippopotamus,koala,lemur,pig,tiger,whale,zebra'
       .split(',')
-      .map(text=>({text,icon:require(`./imgs/${text}.png`)}))
+      .map(text=>({text,icon:require(`../../assets/imgs/${text}.png`)}))
   }
   state = {
     icon:null
