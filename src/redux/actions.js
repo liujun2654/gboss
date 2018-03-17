@@ -2,7 +2,7 @@
 包含所有action creator函数的模块
  */
 
-import {reqRegister,reqLogin,reqUpdateUser} from '../api';
+import {reqRegister,reqLogin,reqUpdateUser,reqUser} from '../api';
 import {ERROR_MSG,AUTH_SUCCESS,RECEIVE_USER,RESET_USER} from './action-types';
 
 //错误信息同步action
@@ -60,6 +60,20 @@ export const login = ({name,pwd}) => {
 export const updateUser = (user) => {
   return async dispatch=>{
     const response = await reqUpdateUser(user)
+    const result = response.data;
+    //判断是否成功
+    if(result.code === 0){//成功
+      dispatch(receiveUser(result.data));
+    }else {
+      dispatch(resetUser(result.msg));
+    }
+  }
+};
+
+//发送异步action，获取user
+export const getUser = () => {
+  return async dispatch=>{
+    const response = await reqUser();
     const result = response.data;
     //判断是否成功
     if(result.code === 0){//成功

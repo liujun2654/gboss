@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import {NavBar,InputItem,TextareaItem,Button} from 'antd-mobile';
+import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import AvatarSelector from '../../components/avatar-selector/avatar-selector';
@@ -26,6 +27,11 @@ class GeniusInfo extends React.Component{
   };
 
   render(){
+    //如果用户已完善，跳转到genius路由
+    const {user} = this.props;
+    if(user.avatar){
+      return <Redirect to='/genius'/>
+    }
     return (
       <div>
         <NavBar>牛人信息完善</NavBar>

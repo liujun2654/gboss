@@ -10,4 +10,6 @@ export const reqRegister = user => ajax('/api/register',user,'POST');
 //请求登陆
 export const reqLogin = user => ajax('/api/login',user,'POST');
 //更新用户资料
-export const reqUpdateUser = user => ajax('/api/update',user,'POST')
+export const reqUpdateUser = user => ajax('/api/update',user,'POST');
+//获取用户
+export const reqUser = () => ajax('/api/user');

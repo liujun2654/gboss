@@ -90,6 +90,26 @@ router.post('/update',function (req,res) {
     }
   })
 });
+//获取用户user路由
+router.get('/user',function (req,res) {
+  //拿到cookie中的userid
+  const userid = req.cookies.userid;
+  //判读是否存在
+  if(!userid){//不存在
+    return res.send({code:1,msg:'请先登陆'});
+  }
+  //通过userid从数据库中获取相应的user
+  UserModel.findOne({_id:userid},filter,function (err,user) {
+    if(!user){
+      //获取失败，删除cookie中userid
+      res.clearCookie('userid');
+      return res.send({code:1,msg:'请先登陆'});
+    }else {
+      //获取成功，返回新数据
+      res.send({code:0,data:user});
+    }
+  })
+});
 
 // 4. 向外暴露路由器
 module.exports = router;
