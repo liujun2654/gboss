@@ -13,3 +13,5 @@ export const reqLogin = user => ajax('/api/login',user,'POST');
 export const reqUpdateUser = user => ajax('/api/update',user,'POST');
 //获取用户
 export const reqUser = () => ajax('/api/user');
+//根据type获取用户列表
+export const reqUserList = type => ajax('/api/userlist',{type});

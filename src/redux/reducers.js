@@ -3,7 +3,7 @@
 * */
 
 import {combineReducers} from 'redux'
-import {AUTH_SUCCESS,ERROR_MSG,RECEIVE_USER,RESET_USER} from './action-types';
+import {AUTH_SUCCESS,ERROR_MSG,RECEIVE_USER,RESET_USER,RECEIVE_USER_LIST} from './action-types';
 import {getRedirectPath} from '../utils';
 
 const initUser = {
@@ -12,7 +12,7 @@ const initUser = {
   msg: '', //错误提示信息
   redirectTo: '' // 需要自动转向的路径
 };
-
+//管理用户的reducer
 function user(state=initUser,action) {
 
   switch (action.type){
@@ -30,8 +30,21 @@ function user(state=initUser,action) {
   }
 }
 
+//管理用户列表的reducer
+const initUserList = [];
+
+function userList(state=initUserList,action) {
+  switch (action.type){
+    case RECEIVE_USER_LIST:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 
 
 export default combineReducers({
-  user
+  user,
+  userList
 })
