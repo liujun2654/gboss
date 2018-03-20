@@ -2,18 +2,42 @@
 对话聊天的路由组件
  */
 
+
 import React, {Component} from 'react'
-import {NavBar, List, InputItem,Icon} from 'antd-mobile'
+import {NavBar, List, InputItem,Icon,Grid} from 'antd-mobile'
 import {connect} from 'react-redux'
-import {sendMsg} from '../../redux/actions'
+import {sendMsg,readMsg} from '../../redux/actions'
 
 const Item = List.Item
 
 class Chat extends Component {
 
   state = {
-    content:''
+    content:'',
+    isShow:false
   }
+  componentWillMount () { // 在第一次调用render()之前调用
+    const emojis = ['🤷🏻','😀', '😄', '😅', '😉','😀', '😄', '😅', '😉',
+      '😀', '😄', '😅', '😉','😀', '😄', '😅', '😉',
+      '😀', '😄', '😅', '😉','😀', '😄', '😅', '😉',
+      '😀', '😄', '😅', '😉','😀', '😄', '😅', '😉',
+      '😀', '😄', '😅', '😉','😀', '😄', '😅', '😉',
+      '😀', '😄', '😅', '😉','😀', '😄', '😅', '😉',
+      '😀', '😄', '😅', '😉','😀', '😄', '😅', '😉']
+    this.emojis = emojis.map(text => ({text}))
+  }
+  toggleShow = () => {
+    const isShow = !this.state.isShow
+    this.setState({isShow})
+
+    if(isShow) {
+      // 异步手动派发resize事件,解决表情列表显示的bug
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'))
+      }, 0)
+    }
+  }
+
   handleChange = (content) => {
     this.setState({content})
   }
@@ -23,12 +47,20 @@ class Chat extends Component {
       const from = this.props.user._id;
       const to = this.props.match.params.userid;
       this.props.sendMsg({from,to,content});
-      this.setState({content:''});
+      this.setState({content:'',isShow:false});
     }
   }
   componentDidMount() {
     // 初始显示列表
     window.scrollTo(0, document.body.scrollHeight)
+
+
+
+  }
+  componentWillUnmount(){
+    //请求标识当前消息已读
+    const from = this.props.match.params.userid;
+    this.props.readMsg(from)
   }
 
   componentDidUpdate () {
@@ -91,11 +123,22 @@ class Chat extends Component {
           <InputItem
             placeholder="请输入"
             extra={
-              <span onClick={this.send}>发送</span>
+              <div>
+                <span onClick={this.toggleShow}>😀</span>
+                <span onClick={this.send}>发送</span>
+              </div>
             }
             value={this.state.content}
             onChange={val=>{this.handleChange(val)}}
+            onFocus={() => this.setState({isShow: false})}
           />
+          {this.state.isShow ? (
+            <Grid data={this.emojis}
+                  columnNum={8}
+                  carouselMaxRow={4}
+                  isCarousel={true}
+                  onClick={item => this.setState({content: this.state.content + item.text})}/>
+          ) : null}
         </div>
       </div>
     )
@@ -104,5 +147,5 @@ class Chat extends Component {
 
 export default connect(
   state=>({user:state.user,chat:state.chat}),
-  {sendMsg}
+  {sendMsg,readMsg}
 )(Chat)

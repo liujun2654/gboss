@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import {Card, WingBlank, WhiteSpace} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 
+import QueueAnim from 'rc-queue-anim'
+
 const Header = Card.Header
 const Body = Card.Body
 
@@ -22,6 +24,7 @@ class UserList extends React.Component {
   render() {
     return (
       <WingBlank className='msg-top-bottom'>
+        <QueueAnim type='scale'>
         {
           this.props.userList.map(user=>(
             <div key={user._id}>
@@ -41,7 +44,7 @@ class UserList extends React.Component {
             </div>
           ))
         }
-
+      </QueueAnim>
       </WingBlank>
     )
   }
