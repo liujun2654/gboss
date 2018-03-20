@@ -16,6 +16,7 @@ import Boss from '../boss/boss';
 import Genius from '../genius/genius';
 import Msg from '../msg/msg';
 import User from '../user/user';
+import Chat from '../chat/chat';
 import NotFound from '../../components/not-found/not-found';
 import {getRedirectPath} from '../../utils'
 import NavFooter from '../../components/nav-footer/nav-footer'
@@ -90,7 +91,7 @@ class Dashboard extends React.Component{
     const currentNav = this.navList.find(nav=>nav.path===pathname);
     return (
       <div>
-        {currentNav?<NavBar>{currentNav.title}</NavBar>:null}
+        {currentNav?<NavBar className='stick-top'>{currentNav.title}</NavBar>:null}
         <Switch>
           <Route path='/bossinfo' component={BossInfo}/>
           <Route path='/geniusinfo' component={GeniusInfo}/>
@@ -98,6 +99,7 @@ class Dashboard extends React.Component{
           <Route path='/genius' component={Genius}/>
           <Route path='/msg' component={Msg}/>
           <Route path='/user' component={User}/>
+          <Route path='/chat/:userid' component={Chat}/>
           <Route component={NotFound}/>
         </Switch>
         {currentNav?<NavFooter navList={this.navList}/>:null}

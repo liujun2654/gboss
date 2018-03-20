@@ -3,7 +3,15 @@
 * */
 
 import {combineReducers} from 'redux'
-import {AUTH_SUCCESS,ERROR_MSG,RECEIVE_USER,RESET_USER,RECEIVE_USER_LIST} from './action-types';
+import {
+  AUTH_SUCCESS,
+  ERROR_MSG,
+  RECEIVE_USER,
+  RESET_USER,
+  RECEIVE_USER_LIST,
+  RECEIVE_MSG,
+  RECEIVE_MSG_LIST
+} from './action-types';
 import {getRedirectPath} from '../utils';
 
 const initUser = {
@@ -43,8 +51,34 @@ function userList(state=initUserList,action) {
 }
 
 
+const initChat = {
+  chatMsgs: [], // 包含所有当前用户相关的聊天列表
+  users: {}, // 包含所有用户信息{name, avatar}的对象容器
+  unReadCount: 0 // 未读消息的数量
+}
+
+function chat(state=initChat,action) {
+  switch (action.type){
+    case RECEIVE_MSG:
+      return {
+        chatMsgs: [...state.chatMsgs,action.data],
+        users: state.users,
+        unReadCount: 0
+      };
+    case RECEIVE_MSG_LIST:
+      return {
+        chatMsgs: action.data.chatMsgs,
+        users: action.data.users,
+        unReadCount: 0
+      };
+    default:
+      return state;
+  }
+}
+
 
 export default combineReducers({
   user,
-  userList
+  userList,
+  chat
 })

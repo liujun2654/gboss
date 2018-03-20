@@ -33,7 +33,7 @@ class User extends React.Component {
   render() {
     const {name, avatar, title, desc, money, company} = this.props.user;
     return (
-      <div>
+      <div className='msg-top-bottom'>
         <Result
           img={<img src={require(`../../assets/imgs/${avatar}.png`)} style={{width: 50}} alt="avatar"/>}
           title={name}

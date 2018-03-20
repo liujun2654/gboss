@@ -9,7 +9,7 @@ export default class Msg extends React.Component{
   render(){
 
     return (
-      <div>
+      <div className='msg-top-bottom'>
         消息列表
       </div>
     )

@@ -12,3 +12,7 @@ export const RECEIVE_USER = 'receive_user';
 export const RESET_USER = 'reset_user';
 //用户列表
 export const RECEIVE_USER_LIST = 'receive_user_list';
+
+export const RECEIVE_MSG = 'receive_msg';
+
+export const RECEIVE_MSG_LIST = 'receive_msg_list'
